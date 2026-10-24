@@ -1,0 +1,116 @@
+server:
+  port: 18086
+
+spring:
+  application:
+    name: kzai-aigc
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/course_stack_ai?useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: kzai
+    password: Kzai@2026
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    openfeign:
+      client:
+        config:
+          kzai-course:
+            connectTimeout: 1000
+            readTimeout: 5000
+          kzai-trade:
+            connectTimeout: 1000
+            readTimeout: 3000
+          RecommendationLearningClient:
+            connectTimeout: 1000
+            readTimeout: 3000
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+  # Spring AI Alibaba DashScope 已被全局排除自动装配（autoconfigure.exclude）。
+  # 真实模型启用条件：同时设置 DASHSCOPE_ENABLED=true 与 DASHSCOPE_API_KEY=<key>。
+  # 启用时由 AiModelConfig 手工导入 DashScopeChatConfiguration 并装配 ChatClient；
+  # 未启用时不会创建任何 ChatModel Bean，对话走 MOCK Provider。
+  autoconfigure:
+    exclude:
+      - com.alibaba.cloud.ai.autoconfigure.dashscope.DashScopeAutoConfiguration
+  ai:
+    dashscope:
+      chat:
+        api-key: ${DASHSCOPE_API_KEY:}
+        base-url: ${DASHSCOPE_BASE_URL:https://dashscope.aliyuncs.com}
+        options:
+          model: ${DASHSCOPE_MODEL:qwen-plus}
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: assign_id
+
+kzai:
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}
+  aigc:
+    # 真实模型启用条件：必须同时设置 DASHSCOPE_ENABLED=true 与 DASHSCOPE_API_KEY=<key>
+    real-enabled: ${DASHSCOPE_ENABLED:false}
+    # 同一会话同时只允许一个生成任务（应用内锁；多实例需借助 Redis 锁）
+    max-concurrent-sessions: 1
+    # 会话消息在 Redis 中的过期时间（小时）：默认 7 天
+    memory-ttl-hours: 168
+    # 停止标识 Redis TTL（分钟）：默认 5 分钟
+    stop-ttl-minutes: 5
+    # 历史会话列表上限
+    history-limit: 30
+    # 会话标题截取前 N 字
+    title-length: 100
+    # MOCK 单次增量延迟（毫秒）：模拟真实模型的逐段返回节奏，
+    # 便于观察 SSE 流式渲染与"生成中点击停止"。MOCK 仅用于协议验证，不代表真实模型性能。
+    mock-delay-ms: 300
+    # M7：MOCK 工具脚本开关（仅 MOCK Provider 生效）：按确定性脚本触发与真实路径
+    # 完全相同的工具实现，验证 1003 卡片 / 购买确认 / 预下单幂等协议；不计入真实 Tool Calling 验收
+    mock-tool-script: ${KZAI_AIGC_MOCK_TOOL_SCRIPT:true}
+    # M7：课程工具单次搜索返回上限（1–10）
+    tool-search-limit: 5
+    # M7：购买确认提案有效期（分钟），过期自动失效防止跨轮复用
+    proposal-ttl-minutes: 10
+    # M9：RAG 知识库（切片 500/重叠 50 为代码常量；TopK/阈值为原始约束值）
+    knowledge-es-url: ${KZAI_ES_URL:http://127.0.0.1:9200}
+    knowledge-index-alias: kzai-knowledge-alias
+    knowledge-index-prefix: kzai-knowledge
+    knowledge-top-k: 6
+    knowledge-min-score: 0.6
+    # Embedding 提供方：mock（显著标识，仅协议链路）| dashscope（真实，需 DASHSCOPE_API_KEY）
+    # M15 REAL 修复：条件注解已统一读取本键（原 kzai.ai.knowledge.embedding-provider 为死键）
+    embedding-provider: ${KZAI_EMBEDDING_PROVIDER:mock}
+    recommendation-indexing-enabled: ${KZAI_RECOMMENDATION_INDEXING_ENABLED:true}
+    recommendation-index-prefix: ${KZAI_RECOMMENDATION_INDEX_PREFIX:kzai-course-recommend}
+    # 与教师知识库分别选择提供方/模型，切换时生成独立命名空间，不修改 knowledge 索引。
+    recommendation-embedding-provider: ${KZAI_RECOMMENDATION_EMBEDDING_PROVIDER:mock}
+    recommendation-embedding-model: ${KZAI_RECOMMENDATION_EMBEDDING_MODEL:text-embedding-v4}
+    recommendation-min-score: ${KZAI_RECOMMENDATION_MIN_SCORE:0.78}
+    # M15 REAL：Embedding 模型名（默认沿用 M9 的 text-embedding-v1；
+    # 批准切换后设为 text-embedding-v4——北京地域当前官方推荐，默认 1024 维）
+    embedding-model: ${KZAI_EMBEDDING_MODEL:text-embedding-v1}
+    knowledge-max-file-size: 10485760
+    knowledge-storage-dir: ${KZAI_KNOWLEDGE_DIR:./data/knowledge}
+    # 系统提示词 / 欢迎语（从配置读取，不冒充模型生成）
+    system-prompt: "你是「课栈智伴」在线教育平台的 AI 助手，请用中文简洁作答，回答支持 Markdown。\n若被问到课程、订单或学习进度等与用户账号相关的问题，请告知用户前往课程详情页、我的订单或我的学习查看。"
+    welcome-text: "你好，我是「课栈智伴」AI 助手。试试问我：在线教育平台有哪些特色课程？或描述一下你正在学习的主题，我会给出学习建议。"
+
+logging:
+  level:
+    com.kzai.aigc: INFO
+    com.alibaba.cloud.ai: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%X{requestId:-}] %logger{36} - %msg%n"

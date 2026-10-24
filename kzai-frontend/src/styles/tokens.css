@@ -1,0 +1,72 @@
+/**
+ * M15.14-R5 D1：全站设计令牌（tokens.css）——学员端 C 端观感与运营端紧凑风格分离的单一来源。
+ *
+ * 色彩决策：主色选用靛蓝 #4F46E5（教育科技感；白字对比度 6.3:1 满足 4.5:1 要求；
+ * 与既有深蓝顶栏 #1a3f8f 同为蓝系，观感渐进不跳变）。辅色 20% 中性暖灰，点缀 10% 琥珀
+ * （价格/角标/学习进度）。通过覆盖 Element Plus 官方 CSS 变量全局生效，不硬编码散落色值。
+ *
+ * 层级：页面底 #F1F5F9 → 卡片白色圆角 12px + 三档阴影 → 强调仅 AI 工作台品牌横幅一处。
+ */
+
+:root {
+  /* 主色 70%：Element Plus 官方变量覆盖（自动作用于 el-button/el-tag/el-pagination 等） */
+  --el-color-primary: #4F46E5;
+  --el-color-primary-light-3: #7C74EE;
+  --el-color-primary-light-5: #A7A2F3;
+  --el-color-primary-light-7: #D1CFF9;
+  --el-color-primary-light-8: #E4E2FB;
+  --el-color-primary-light-9: #F2F1FD;
+  --el-color-primary-dark-2: #3F38B7;
+
+  /* 品牌既有主色（顶栏沿用，保持视觉连续） */
+  --kz-primary: #1a3f8f;
+
+  /* 辅色 20%：中性暖灰 */
+  --kz-bg: #F1F5F9;
+  --kz-bg-page: #F8FAFC;
+  --kz-text: #334155;
+  --kz-text-secondary: #64748B;
+
+  /* 点缀 10%：琥珀（价格/角标/学习进度） */
+  --kz-accent: #F59E0B;
+  --kz-accent-light: #FDE68A;
+
+  /* 语义色：免费=绿、付费=琥珀、学习中=蓝、已完成=绿、已关闭=灰 */
+  --kz-sem-free: #2ba471;
+  --kz-sem-paid: #F59E0B;
+  --kz-sem-learning: #4F46E5;
+  --kz-sem-done: #2ba471;
+  --kz-sem-closed: #98a2b3;
+
+  /* 圆角三档 */
+  --kz-radius-sm: 8px;
+  --kz-radius-md: 12px;
+  --kz-radius-lg: 16px;
+
+  /* 阴影三档 */
+  --kz-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --kz-shadow-md: 0 4px 12px rgba(15, 23, 42, 0.10);
+  --kz-shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.14);
+
+  /* 间距三档 */
+  --kz-gap-sm: 8px;
+  --kz-gap-md: 12px;
+  --kz-gap-lg: 16px;
+
+  /* 既有卡片变量沿用 */
+  --kz-card: #ffffff;
+}
+
+/* 学员端卡片观感：圆角 12px + 轻阴影（管理端 el-table 区域保持紧凑，不受影响） */
+.el-card {
+  border-radius: var(--kz-radius-md);
+  border: none;
+  box-shadow: var(--kz-shadow-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,9 @@
+event: 1001
+data: {"code":1001,"data":{"content":"找到以下符合当前条件的课程，价格和购买资格已核对。\n\nJava 微服务架构实战，¥299.00。\n课程简介：从单体到微服务的完整演进路径，覆盖注册中心、配置中心、网关与远程调用。"}}
+
+event: 1003
+data: {"code":1003,"data":{"type":"COURSE_CARD","cardId":"course:1001","payload":{"courseId":"1001","name":"Java 微服务架构实战","coverUrl":"https://placehold.co/480x270?text=Java","price":29900,"priceYuan":"299.00","introduce":"从单体到微服务的完整演进路径，覆盖注册中心、配置中心、网关与远程调用。","chapterCount":4,"free":0,"purchasable":true,"reason":null,"validDuration":12,"usePeople":"具备 Java 基础、想系统掌握微服务落地的后端工程师","owned":false,"completed":false,"recommendationEvidence":["召回方式：学习目标的语义检索","课程简介：从单体到微服务的完整演进路径，覆盖注册中心、配置中心、网关与远程调用。","公开适用人群：具备 Java 基础、想系统掌握微服务落地的后端工程师","当前价格在你设置的单门课程预算内。"],"recommendationWarnings":["课程视频总时长不完整，无法确认时间适配。"],"retrievalMode":"HYBRID","dataSource":"COURSE_SERVICE_LIVE","matchedBy":"SEMANTIC"}}}
+
+event: 1002
+data: {"code":1002,"data":{"terminal":true,"code":"OK","message":"ok","mock":false,"provider":"DASHSCOPE","stopped":false,"persisted":true,"contentLength":89,"cardCount":1,"recommendationServerFallback":false,"agent":"RECOMMEND","promptTokens":1709,"completionTokens":0,"totalTokens":1710}}
+

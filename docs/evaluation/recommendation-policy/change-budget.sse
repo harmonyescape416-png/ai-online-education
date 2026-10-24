@@ -1,0 +1,6 @@
+event: 1001
+data: {"code":1001,"data":{"content":"本次未能返回推荐课程：有候选超出你设置的单门预算。\n\n可以调整预算后重新查找。"}}
+
+event: 1002
+data: {"code":1002,"data":{"terminal":true,"code":"OK","message":"ok","mock":false,"provider":"DASHSCOPE","stopped":false,"persisted":true,"contentLength":39,"cardCount":0,"recommendationServerFallback":false,"agent":"RECOMMEND","promptTokens":1518,"completionTokens":0,"totalTokens":1519}}
+

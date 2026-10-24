@@ -1,0 +1,6 @@
+event: 1001
+data: {"code":1001,"data":{"content":"暂时没有找到与当前学习目标匹配的可推荐课程。\n\n你主要想用它做什么？我可以按用途再找一次。"}}
+
+event: 1002
+data: {"code":1002,"data":{"terminal":true,"code":"OK","message":"ok","mock":false,"provider":"DASHSCOPE","stopped":false,"persisted":true,"contentLength":45,"cardCount":0,"recommendationServerFallback":false,"agent":"RECOMMEND","promptTokens":1247,"completionTokens":0,"totalTokens":1248}}
+

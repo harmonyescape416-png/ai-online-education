@@ -1,0 +1,3 @@
+event: 1002
+data: {"code":1002,"data":{"terminal":true,"code":"UPSTREAM_ERROR","message":"Operation timed out","mock":false,"provider":"DASHSCOPE","stopped":false,"persisted":true,"contentLength":0,"cardCount":0,"agent":"RECOMMEND"}}
+

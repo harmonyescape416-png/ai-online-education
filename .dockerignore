@@ -1,0 +1,15 @@
+# Docker 构建上下文是仓库根。下面这些不参与镜像构建。
+# 服务镜像在容器内执行 mvn package，前端镜像执行 npm ci && npm run build。
+# 不要排除 pom.xml、各模块 src、kzai-frontend/package.json、package-lock.json、deploy/nginx。
+
+**/target
+**/node_modules
+kzai-frontend/dist
+logs
+.runtime
+**/.DS_Store
+**/.vite
+*.log
+.workbuddy
+.git
+data

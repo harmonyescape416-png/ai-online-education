@@ -1,0 +1,210 @@
+{
+  "scope": "temporary isolated sessions, current catalog and real configured provider",
+  "cases": [
+    {
+      "case": "python-first",
+      "input": "我要学 Python",
+      "reply": "暂时没有找到与当前学习目标匹配的可推荐课程。\n\n你主要想用它做什么？我可以按用途再找一次。",
+      "terminal": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 45,
+          "cardCount": 0,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1345,
+          "completionTokens": 0,
+          "totalTokens": 1390
+        }
+      ],
+      "preferences": {
+        "goal": "我要学 Python",
+        "keyword": "Python",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "seconds": 4.921,
+      "policyAssertionsPassed": true
+    },
+    {
+      "case": "explicit-conditions",
+      "input": "我想学 Java 微服务，预算500元，每周5小时，4周学完",
+      "reply": "找到以下符合当前条件的课程，价格和购买资格已核对。\n\nJava 微服务架构实战，¥299.00。\n课程简介：从单体到微服务的完整演进路径，覆盖注册中心、配置中心、网关与远程调用。",
+      "terminal": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 89,
+          "cardCount": 1,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1709,
+          "completionTokens": 0,
+          "totalTokens": 1918
+        }
+      ],
+      "preferences": {
+        "goal": "我想学 Java 微服务，预算500元，每周5小时，4周学完",
+        "keyword": "Java 微服务",
+        "foundation": null,
+        "budgetCents": 50000,
+        "hoursPerWeek": 5,
+        "weeks": 4,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "seconds": 7.737,
+      "policyAssertionsPassed": true
+    },
+    {
+      "case": "separate-session",
+      "input": "我要学 Python",
+      "reply": "暂时没有找到与当前学习目标匹配的可推荐课程。\n\n你主要想用它做什么？我可以按用途再找一次。",
+      "terminal": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 45,
+          "cardCount": 0,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1345,
+          "completionTokens": 0,
+          "totalTokens": 1390
+        }
+      ],
+      "preferences": {
+        "goal": "我要学 Python",
+        "keyword": "Python",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "seconds": 4.998,
+      "policyAssertionsPassed": true
+    },
+    {
+      "case": "budget-change",
+      "input": "预算改成1元",
+      "reply": "本次未能返回推荐课程：有候选超出你设置的单门预算。\n\n可以调整预算后重新查找。",
+      "terminal": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 39,
+          "cardCount": 0,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1518,
+          "completionTokens": 0,
+          "totalTokens": 1576
+        }
+      ],
+      "preferences": {
+        "goal": "我想学 Java 微服务，预算500元，每周5小时，4周学完",
+        "keyword": "Java 微服务",
+        "foundation": null,
+        "budgetCents": 100,
+        "hoursPerWeek": 5,
+        "weeks": 4,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "seconds": 4.704,
+      "policyAssertionsPassed": true
+    },
+    {
+      "case": "clear-conditions",
+      "input": "取消预算，时间不限",
+      "reply": "找到以下符合当前条件的课程，价格和购买资格已核对。\n\nJava 微服务架构实战，¥299.00。\n课程简介：从单体到微服务的完整演进路径，覆盖注册中心、配置中心、网关与远程调用。",
+      "terminal": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 89,
+          "cardCount": 1,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1777,
+          "completionTokens": 0,
+          "totalTokens": 1876
+        }
+      ],
+      "preferences": {
+        "goal": "我想学 Java 微服务，预算500元，每周5小时，4周学完",
+        "keyword": "Java 微服务",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "seconds": 5.354,
+      "policyAssertionsPassed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "sessionId": "c3e24ea5-1f8c-4fcf-8860-968152a36985",
+      "deleted": true
+    },
+    {
+      "sessionId": "bded719c-020f-4f0f-939b-45b08c961686",
+      "deleted": true
+    }
+  ]
+}

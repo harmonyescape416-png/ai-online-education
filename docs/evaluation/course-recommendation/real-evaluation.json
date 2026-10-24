@@ -1,0 +1,178 @@
+{
+  "model" : "text-embedding-v4",
+  "fixture" : "isolated course service doubles",
+  "additionalCases" : [ {
+    "courseIds" : [ ],
+    "expected" : "91001",
+    "expectationMet" : false,
+    "goal" : "从头写一个接收网页请求的服务器程序"
+  }, {
+    "courseIds" : [ "91003" ],
+    "expected" : "91003",
+    "expectationMet" : true,
+    "goal" : "处理杂乱表格、清洗数据并绘制统计图"
+  }, {
+    "courseIds" : [ "91002" ],
+    "expected" : "91002",
+    "expectationMet" : true,
+    "goal" : "学习分布式系统的注册中心和网关治理"
+  }, {
+    "courseIds" : [ ],
+    "expected" : "EMPTY",
+    "expectationMet" : true,
+    "goal" : "想学习烘焙面包和奶油蛋糕制作"
+  } ],
+  "dimensions" : 1024,
+  "minScore" : 0.78,
+  "provider" : "DASHSCOPE",
+  "cases" : [ {
+    "expected" : "91001",
+    "status" : "OK",
+    "courseIds" : [ "91001" ],
+    "case" : "beginner",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91001",
+      "score" : 0.9054383
+    }, {
+      "courseId" : "91002",
+      "score" : 0.7670102
+    }, {
+      "courseId" : "91004",
+      "score" : 0.72791266
+    }, {
+      "courseId" : "91003",
+      "score" : 0.6982534
+    } ]
+  }, {
+    "expected" : "91002",
+    "status" : "OK",
+    "courseIds" : [ "91002" ],
+    "case" : "advanced",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91002",
+      "score" : 0.87394416
+    }, {
+      "courseId" : "91001",
+      "score" : 0.75416565
+    }, {
+      "courseId" : "91003",
+      "score" : 0.6599442
+    }, {
+      "courseId" : "91004",
+      "score" : 0.6542231
+    } ]
+  }, {
+    "expected" : "EMPTY",
+    "status" : "NOT_FOUND",
+    "courseIds" : [ ],
+    "case" : "budget",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91003",
+      "score" : 0.8771773
+    }, {
+      "courseId" : "91004",
+      "score" : 0.6490635
+    }, {
+      "courseId" : "91001",
+      "score" : 0.6403148
+    }, {
+      "courseId" : "91002",
+      "score" : 0.6166033
+    } ]
+  }, {
+    "expected" : "EMPTY",
+    "status" : "NEEDS_CLARIFICATION",
+    "courseIds" : [ ],
+    "case" : "vague",
+    "mode" : "NONE",
+    "expectationMet" : true,
+    "rawScores" : [ ]
+  }, {
+    "expected" : "EMPTY",
+    "status" : "NOT_FOUND",
+    "courseIds" : [ ],
+    "case" : "no_match",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91002",
+      "score" : 0.6536097
+    }, {
+      "courseId" : "91001",
+      "score" : 0.64150345
+    }, {
+      "courseId" : "91004",
+      "score" : 0.63145435
+    }, {
+      "courseId" : "91003",
+      "score" : 0.62545735
+    } ]
+  }, {
+    "expected" : "EXCLUDE_91001",
+    "status" : "NOT_FOUND",
+    "courseIds" : [ ],
+    "case" : "owned",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91001",
+      "score" : 0.8804996
+    }, {
+      "courseId" : "91002",
+      "score" : 0.7619525
+    }, {
+      "courseId" : "91004",
+      "score" : 0.7116453
+    }, {
+      "courseId" : "91003",
+      "score" : 0.6822104
+    } ]
+  }, {
+    "expected" : "EXCLUDE_91003",
+    "status" : "NOT_FOUND",
+    "courseIds" : [ ],
+    "case" : "offline",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91003",
+      "score" : 0.8817975
+    }, {
+      "courseId" : "91001",
+      "score" : 0.67334765
+    }, {
+      "courseId" : "91004",
+      "score" : 0.6728111
+    }, {
+      "courseId" : "91002",
+      "score" : 0.64858264
+    } ]
+  }, {
+    "expected" : "FACTS_ONLY",
+    "status" : "OK",
+    "courseIds" : [ "91001" ],
+    "case" : "injection",
+    "mode" : "SEMANTIC",
+    "expectationMet" : true,
+    "rawScores" : [ {
+      "courseId" : "91001",
+      "score" : 0.80657446
+    }, {
+      "courseId" : "91002",
+      "score" : 0.7631783
+    }, {
+      "courseId" : "91004",
+      "score" : 0.71374804
+    }, {
+      "courseId" : "91003",
+      "score" : 0.6989997
+    } ]
+  } ],
+  "positiveHitAt3" : "2/2"
+}

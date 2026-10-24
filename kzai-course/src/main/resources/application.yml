@@ -1,0 +1,47 @@
+server:
+  port: 18083
+
+spring:
+  application:
+    name: kzai-course
+  servlet:
+    multipart:
+      # 与 kzai.file.max-size 保持一致，超限由业务层给出明确提示
+      max-file-size: 20MB
+      max-request-size: 20MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/course_stack_ai?useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: kzai
+    password: Kzai@2026
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      # course_category 无 deleted 字段，故不使用全局逻辑删除，改为实体 @TableLogic 声明
+      id-type: assign_id
+
+kzai:
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}
+  # M4：是否接入交易服务的学习权益校验（关闭时使用 fail-closed 默认实现）
+  trade:
+    enabled: true
+  file:
+    # M3：上传文件落盘的受控根目录（相对项目运行目录），不对外暴露绝对路径
+    root: data/upload
+    # 单文件大小上限（字节，默认 20MB）
+    max-size: 20971520

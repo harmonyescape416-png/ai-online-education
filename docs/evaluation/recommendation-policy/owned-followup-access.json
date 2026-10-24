@@ -1,0 +1,18 @@
+[
+  {
+    "courseId": "1003",
+    "name": "大模型应用开发入门",
+    "access": {
+      "courseId": "1003",
+      "courseName": "大模型应用开发入门",
+      "free": false,
+      "allowed": true,
+      "source": "PAID",
+      "sourceText": "已购买",
+      "reason": "已取得学习权益",
+      "expireTime": "2027-04-22T11:24:27",
+      "enrolled": true,
+      "courseVisible": true
+    }
+  }
+]

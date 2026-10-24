@@ -1,0 +1,64 @@
+{
+  "fixture" : "isolated course service doubles",
+  "dimensions" : 1024,
+  "positiveHitAt3" : "2/2",
+  "model" : "text-embedding-v4",
+  "provider" : "DASHSCOPE",
+  "cases" : [ {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91001", "91004", "91003" ],
+    "case" : "beginner",
+    "expected" : "91001"
+  }, {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91002", "91001", "91003" ],
+    "case" : "advanced",
+    "expected" : "91002"
+  }, {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "NOT_FOUND",
+    "courseIds" : [ ],
+    "case" : "budget",
+    "expected" : "EMPTY"
+  }, {
+    "expectationMet" : true,
+    "mode" : "NONE",
+    "status" : "NEEDS_CLARIFICATION",
+    "courseIds" : [ ],
+    "case" : "vague",
+    "expected" : "EMPTY"
+  }, {
+    "expectationMet" : false,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91002", "91001", "91004" ],
+    "case" : "no_match",
+    "expected" : "EMPTY"
+  }, {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91002", "91004", "91003" ],
+    "case" : "owned",
+    "expected" : "EXCLUDE_91001"
+  }, {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91001", "91004", "91002" ],
+    "case" : "offline",
+    "expected" : "EXCLUDE_91003"
+  }, {
+    "expectationMet" : true,
+    "mode" : "SEMANTIC",
+    "status" : "OK",
+    "courseIds" : [ "91001", "91002", "91004" ],
+    "case" : "injection",
+    "expected" : "FACTS_ONLY"
+  } ]
+}

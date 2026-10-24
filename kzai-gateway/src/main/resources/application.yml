@@ -1,0 +1,193 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: kzai-gateway
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+      routes:
+        - id: kzai-auth
+          uri: lb://kzai-auth
+          predicates:
+            - Path=/auth/**
+        # M11：站内通知（user 服务）；统一入口走网关认证
+        - id: kzai-user-notifications
+          uri: lb://kzai-user
+          predicates:
+            - Path=/notifications/**
+        - id: kzai-user
+          uri: lb://kzai-user
+          predicates:
+            - Path=/users/**
+        # M4：交易服务订单接口
+        - id: kzai-trade
+          uri: lb://kzai-trade
+          predicates:
+            - Path=/orders/**
+        # M5：学习服务学员端接口
+        - id: kzai-learning
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/learning/**
+        # M6：AI 服务（会话/对话/模板/内部接口）
+        - id: kzai-aigc-chat
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/chat/**
+        - id: kzai-aigc-session
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/session/**
+        # M10：课程问答与教师问答管理必须排在课程服务 /teacher/** 之前
+        - id: kzai-learning-questions
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/questions/**
+        - id: kzai-learning-teacher-questions
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/teacher/questions/**
+        - id: kzai-learning-teacher-replies
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/teacher/replies/**
+        # M5：教师学情统计必须排在 /teacher/** 之前，否则会被课程服务路由抢先命中
+        - id: kzai-learning-teacher-stats
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/teacher/learning-stats/**
+        # M3：课程域接口必须排在 /admin/** 之前，否则会被用户服务的通配路由抢先命中
+        - id: kzai-course-teacher
+          uri: lb://kzai-course
+          predicates:
+            - Path=/teacher/**
+        - id: kzai-course-admin-course
+          uri: lb://kzai-course
+          predicates:
+            - Path=/admin/courses/**
+        - id: kzai-course-admin-category
+          uri: lb://kzai-course
+          predicates:
+            - Path=/admin/categories/**
+        # M8：AI Prompt 模板管理必须排在 /admin/** 通配之前，精确命中 aigc 服务
+        - id: kzai-aigc-admin-prompts
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/admin/ai/prompts/**
+        # M9：知识库管理（管理员）与向量接口（原始设计 /embedding/**）
+        - id: kzai-aigc-admin-recommendations
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/admin/ai/recommendations/**
+        - id: kzai-aigc-admin-knowledge
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/admin/ai/knowledge/**
+        - id: kzai-aigc-embedding
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/embedding/**
+        # M14：语音 STT/TTS（登录用户；/audio 不与 /chat /session /admin 冲突）
+        - id: kzai-aigc-audio
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/audio/**
+        # M12：AI 批量评测（管理员专用，/eval/** 不与既有通配冲突）
+        - id: kzai-aigc-eval
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/eval/**
+        # M13：精确管理路由必须排在 /admin/** 通配之前（会话监管→aigc；问答监管/Outbox→learning；参数→aigc）
+        - id: kzai-aigc-admin-supervision-sessions
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/admin/supervision/sessions/**
+        - id: kzai-aigc-admin-system-settings
+          uri: lb://kzai-aigc
+          predicates:
+            - Path=/admin/system-settings/**
+        - id: kzai-learning-admin-supervision-questions
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/admin/supervision/questions/**
+        - id: kzai-learning-admin-outbox
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/admin/outbox/**
+        - id: kzai-user-admin-dashboard
+          uri: lb://kzai-user
+          predicates:
+            - Path=/admin/dashboard/**
+        - id: kzai-user-admin-operation-logs
+          uri: lb://kzai-user
+          predicates:
+            - Path=/admin/operation-logs/**
+        - id: kzai-course-category
+          uri: lb://kzai-course
+          predicates:
+            - Path=/categories/**
+        - id: kzai-course-file
+          uri: lb://kzai-course
+          predicates:
+            - Path=/files/**
+        # M2：管理员用户管理接口，与 /users/** 同属用户服务，鉴权由 @RequireRoles 接管
+        - id: kzai-trade-admin-refunds
+          uri: lb://kzai-trade
+          predicates:
+            - Path=/admin/refunds/**
+        - id: kzai-learning-admin-points
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/admin/points/**
+        - id: kzai-learning-admin-notes
+          uri: lb://kzai-learning
+          predicates:
+            - Path=/admin/notes/**
+        - id: kzai-trade-admin-coupons
+          uri: lb://kzai-trade
+          predicates:
+            - Path=/admin/coupons/**
+        - id: kzai-trade-coupons
+          uri: lb://kzai-trade
+          predicates:
+            - Path=/coupons/**
+        - id: kzai-user-admin
+          uri: lb://kzai-user
+          predicates:
+            - Path=/admin/**
+        - id: kzai-course
+          uri: lb://kzai-course
+          predicates:
+            - Path=/courses/**
+
+kzai:
+  jwt:
+    # 遗留修复⑤：密钥一律由环境变量注入，源码与配置中不落生产密钥
+    secret: ${KZAI_JWT_SECRET:kzai-dev-jwt-secret-only-for-local-run}
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}
+  auth:
+    white-list: /auth/login,/auth/register,/auth/sms/send,/users/me/avatar/file/**,/orders/payments/notify/**
+logging:
+  level:
+    com.kzai.gateway: INFO

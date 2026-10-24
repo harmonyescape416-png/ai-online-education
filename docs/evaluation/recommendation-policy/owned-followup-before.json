@@ -1,0 +1,138 @@
+{
+  "phase": "before",
+  "accounts": [
+    {
+      "username": "admin",
+      "result": {
+        "status": "OK",
+        "retrievalMode": "SEMANTIC",
+        "message": "找到以下符合当前条件的课程，价格和购买资格已核对。",
+        "preferences": {
+          "goal": "给我推荐学学AI的课程。",
+          "keyword": null,
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [
+          {
+            "courseId": "1003",
+            "name": "大模型应用开发入门",
+            "coverUrl": "https://placehold.co/480x270?text=LLM",
+            "price": 49900,
+            "priceYuan": "499.00",
+            "introduce": "面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+            "chapterCount": 3,
+            "free": 0,
+            "purchasable": true,
+            "reason": null,
+            "validDuration": 6,
+            "usePeople": "希望把大模型能力接入业务系统的开发者",
+            "owned": false,
+            "completed": false,
+            "recommendationEvidence": [
+              "召回方式：学习目标的语义检索",
+              "课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+              "公开适用人群：希望把大模型能力接入业务系统的开发者"
+            ],
+            "recommendationWarnings": [],
+            "retrievalMode": "SEMANTIC",
+            "dataSource": "COURSE_SERVICE_LIVE",
+            "matchedBy": "SEMANTIC"
+          }
+        ],
+        "count": 1,
+        "reasonCodes": [],
+        "nextAction": "",
+        "diagnostics": {
+          "complete": true,
+          "scope": "RECALLED_CANDIDATES",
+          "keyword": "SUCCEEDED",
+          "semantic": "SUCCEEDED",
+          "counts": {
+            "semanticCandidates": 1,
+            "keywordCandidates": 0,
+            "mergedCandidates": 1,
+            "evaluatedCandidates": 1,
+            "filteredCandidates": 0,
+            "returnedCandidates": 1,
+            "ownedOrLearned": 0,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          }
+        }
+      }
+    },
+    {
+      "username": "student01",
+      "result": {
+        "status": "NOT_FOUND",
+        "retrievalMode": "SEMANTIC",
+        "message": "本次未能返回推荐课程：相关候选已在你的已购或学习列表中。",
+        "preferences": {
+          "goal": "给我推荐学学AI的课程。",
+          "keyword": null,
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [],
+        "count": 0,
+        "reasonCodes": [
+          "OWNED_OR_LEARNED"
+        ],
+        "nextAction": "你可以查看已学课程，或选择包含已购、已学课程后重新查找。",
+        "diagnostics": {
+          "complete": true,
+          "scope": "RECALLED_CANDIDATES",
+          "keyword": "SUCCEEDED",
+          "semantic": "SUCCEEDED",
+          "counts": {
+            "semanticCandidates": 1,
+            "keywordCandidates": 0,
+            "mergedCandidates": 1,
+            "evaluatedCandidates": 1,
+            "filteredCandidates": 1,
+            "returnedCandidates": 0,
+            "ownedOrLearned": 1,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          }
+        }
+      }
+    }
+  ],
+  "cases": [],
+  "cleanup": [
+    {
+      "sessionId": "6ee05b01-1f35-41a1-b8a1-32a436544a8a",
+      "deleted": true
+    },
+    {
+      "sessionId": "fa010c1e-d616-46e3-b361-2f126202b264",
+      "deleted": true
+    }
+  ]
+}

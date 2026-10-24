@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <circle cx="560" cy="60" r="120" fill="#ffffff" opacity="0.06"/>
+  <circle cx="80" cy="320" r="90" fill="#ffffff" opacity="0.05"/>
+  <rect x="48" y="132" width="76" height="76" rx="16" fill="#ffffff" opacity="0.14"/>
+  <text x="86" y="186" font-size="46" text-anchor="middle" fill="#ffffff" font-family="serif">{ }</text>
+  <text x="148" y="176" font-size="40" font-weight="700" fill="#ffffff" font-family="PingFang SC, Microsoft YaHei, sans-serif">Java</text>
+  <text x="150" y="216" font-size="17" fill="#ffffff" opacity="0.72" font-family="PingFang SC, Microsoft YaHei, sans-serif">课栈智伴 · 在线课程</text>
+</svg>

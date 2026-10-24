@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-24",
+  "backend": {
+    "tests": 210,
+    "passed": 208,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  "frontend": {
+    "passed": 31,
+    "skipped": 7,
+    "lintErrors": 0,
+    "existingLintWarnings": 23,
+    "build": "passed"
+  },
+  "liveWorkflowAssertions": {
+    "initial": 5,
+    "final": 5,
+    "foundationContinuation": 3
+  },
+  "publicPythonMatchCount": 0,
+  "indexJobs": {
+    "ready": 289,
+    "namespace": "kzai-course-recommend-18df39c315a6fe85"
+  },
+  "baselineReplayUpstreamErrors": 2,
+  "promptPublishVersion": "pub-20261024075445",
+  "recommendPromptVersionNo": 59
+}

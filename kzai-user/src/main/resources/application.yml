@@ -1,0 +1,47 @@
+server:
+  port: 18082
+
+spring:
+  application:
+    name: kzai-user
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/course_stack_ai?useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: kzai
+    password: Kzai@2026
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    openfeign:
+      client:
+        config:
+          # 看板按指标降级，三个串行下游调用总预算必须小于前端 30 秒。
+          CourseStatsClient:
+            connectTimeout: 1000
+            readTimeout: 3000
+          LearningStatsClient:
+            connectTimeout: 1000
+            readTimeout: 3000
+          AigcStatsClient:
+            connectTimeout: 1000
+            readTimeout: 3000
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      # user 表无 deleted 字段，不使用全局逻辑删除；有该字段的表在实体上用 @TableLogic 声明
+      id-type: assign_id
+
+kzai:
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}

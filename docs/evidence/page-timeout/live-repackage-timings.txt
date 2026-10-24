@@ -1,0 +1,11 @@
+login admin 200
+login teacher01 200
+discovery kzai-learning [{'ip': '192.168.5.27', 'port': 18085, 'healthy': True, 'enabled': True, 'weight': 1.0}]
+discovery kzai-user [{'ip': '192.168.5.27', 'port': 18082, 'healthy': True, 'enabled': True, 'weight': 1.0}]
+discovery kzai-course [{'ip': '192.168.5.27', 'port': 18083, 'healthy': True, 'enabled': True, 'weight': 1.0}]
+discovery kzai-aigc [{'ip': '192.168.5.27', 'port': 18086, 'healthy': True, 'enabled': True, 'weight': 1.0}]
+/admin/supervision/questions?page=1&size=10 0.012 200 ok keys ['total', 'records']
+/teacher/questions?pageNum=1&pageSize=10 0.022 200 ok keys ['total', 'records']
+/admin/dashboard/overview?days=1 0.023 200 ok keys ['days', 'generatedAt', 'userCount', 'courseCount', 'todaySessions', 'totalSessions', 'sessionTrend', 'aigcAvailable']
+/teacher/learning-stats/workbench-summary 0.025 200 ok keys ['aiUnchecked', 'weeklyQuestions', 'courseCount', 'learners', 'pendingQuestions', 'humanReplies', 'aiReplies']
+/teacher/learning-stats 0.072 200 ok keys ['records', 'total', 'size', 'current', 'pages']

@@ -1,0 +1,137 @@
+/* 界面规约（系统设计说明书 9.1）：主色深蓝，正文 14px，标题 20-24px */
+:root {
+  --kz-primary: #1a3f8f;
+  --kz-primary-light: #2f56ad;
+  --kz-bg: #f5f7fa;
+  --kz-card: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  background: var(--kz-bg);
+  color: #1f2329;
+}
+
+.kz-header {
+  flex-shrink: 0;
+  height: 56px;
+  background: var(--kz-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.kz-header .logo {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.kz-header .user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.kz-page-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.kz-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.kz-course-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kz-course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 63, 143, 0.15);
+}
+
+.kz-price {
+  color: #e0533d;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.kz-price-free {
+  color: #2ba471;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.kz-meta {
+  color: var(--kz-text-secondary); /* M15.35：辅助色 4.76:1（原 #8a9099 仅 3.22:1） */
+  font-size: 12px;
+}
+
+.kz-empty {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--kz-text-secondary);
+}
+
+/* M15.26：键盘焦点轮廓品牌化统一（替代浏览器默认白色/蓝色轮廓——跨浏览器/移动端一致）；
+   鼠标点击不显示（focus-visible 仅键盘导航），弹窗遮罩打开期间页面主体焦点轮廓隐藏 */
+*:focus-visible { outline: 2px solid #4F46E5; outline-offset: 1px; }
+*:focus:not(:focus-visible) { outline: none; }
+body:has(.el-overlay) .el-table *:focus,
+body:has(.el-overlay) .el-table th:focus,
+body:has(.el-overlay) .el-table td:focus { outline: none !important; }
+
+/* M15.35：侧栏菜单与顶栏按钮键盘焦点轮廓（主色 #4F46E5——Tab 经过可见） */
+.el-menu-item:focus-visible,
+.el-sub-menu__title:focus-visible,
+.kz-header .el-button:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: -2px;
+  outline-style: solid;
+  border-radius: 4px;
+}
+.notify-bell:focus-visible,
+button.notify-bell:focus-visible {
+  outline: 2px solid #4F46E5;
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* M15.47：窄屏顶栏增高换行（退出/角色/通知完整可见） */
+@media (max-width: 768px) {
+  .kz-header { height: auto !important; min-height: 56px; flex-wrap: wrap; padding: 6px 12px; row-gap: 4px; }
+  .kz-header .logo { font-size: 16px; white-space: nowrap; }
+  .kz-header .logo-row { flex: 1 1 100%; }
+  .kz-header .user { gap: 8px; flex-wrap: wrap; width: 100%; justify-content: flex-end; }
+}
+
+/* M15.49：窄屏会话/信息抽屉化（覆盖内容+遮罩——全局保证优先级） */
+@media (max-width: 768px) {
+  .ai-aside, .ai-side {
+    position: fixed !important;
+    top: 0; left: 0; bottom: 0;
+    width: 280px; max-width: 82vw;
+    z-index: 120;
+    background: #fff;
+    box-shadow: 2px 0 12px rgba(16,24,40,.18);
+  }
+  .ai-drawer-mask {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 110; background: rgba(16,24,40,.45);
+  }
+}
+

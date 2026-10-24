@@ -1,0 +1,69 @@
+{
+  "scope": "live model + ES + current course/learning/trade services; temporary session; no orders",
+  "sessionId": "a0d4f89a-80f4-4cb8-acec-fe9caa360822",
+  "cases": [
+    {
+      "case": "advanced",
+      "status": "OK",
+      "mode": "HYBRID",
+      "seconds": 1.738,
+      "courses": [
+        {
+          "courseId": "1002",
+          "name": "Spring Cloud Alibaba 进阶",
+          "price": 39900,
+          "validDuration": 12,
+          "owned": false
+        },
+        {
+          "courseId": "1001",
+          "name": "Java 微服务架构实战",
+          "price": 29900,
+          "validDuration": 12,
+          "owned": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "no_match",
+      "status": "NOT_FOUND",
+      "mode": "SEMANTIC",
+      "seconds": 1.159,
+      "courses": [],
+      "passed": true
+    },
+    {
+      "case": "budget_zero",
+      "status": "NOT_FOUND",
+      "mode": "HYBRID",
+      "seconds": 0.587,
+      "courses": [],
+      "passed": true
+    },
+    {
+      "case": "vague",
+      "status": "NEEDS_CLARIFICATION",
+      "mode": "NONE",
+      "seconds": 0.01,
+      "courses": [],
+      "passed": true
+    }
+  ],
+  "foreignSessionDenied": true,
+  "invalidBudgetDenied": true,
+  "invalidBudgetResponse": {
+    "httpStatus": 200,
+    "code": 400
+  },
+  "chat": {
+    "agent": "RECOMMEND",
+    "seconds": 10.609,
+    "courseIds": [
+      "1002",
+      "1001"
+    ],
+    "passed": true
+  },
+  "temporarySessionDeleted": true
+}

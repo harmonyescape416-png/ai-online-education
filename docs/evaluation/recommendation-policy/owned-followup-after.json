@@ -1,0 +1,472 @@
+{
+  "phase": "after",
+  "accounts": [],
+  "cases": [
+    {
+      "username": "student01",
+      "input": "我要学Python。",
+      "reply": "暂时没有找到与当前学习目标匹配的可推荐课程。\n\n可以换一个学习方向或关键词再查找。",
+      "terminals": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 41,
+          "cardCount": 0,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1347,
+          "completionTokens": 0,
+          "totalTokens": 1430
+        }
+      ],
+      "cards": [],
+      "preferences": {
+        "goal": "我要学Python。",
+        "keyword": "Python",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "directResult": {
+        "status": "NOT_FOUND",
+        "retrievalMode": "SEMANTIC",
+        "message": "暂时没有找到与当前学习目标匹配的可推荐课程。",
+        "preferences": {
+          "goal": "我要学Python。",
+          "keyword": "Python",
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [],
+        "ownedCourses": [],
+        "count": 0,
+        "reasonCodes": [
+          "NO_RECALLED_CANDIDATES"
+        ],
+        "nextAction": "可以换一个学习方向或关键词再查找。",
+        "diagnostics": {
+          "scope": "RECALLED_CANDIDATES",
+          "complete": true,
+          "counts": {
+            "semanticCandidates": 0,
+            "keywordCandidates": 0,
+            "mergedCandidates": 0,
+            "evaluatedCandidates": 0,
+            "filteredCandidates": 0,
+            "returnedCandidates": 0,
+            "ownedOrLearned": 0,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          },
+          "semantic": "SUCCEEDED",
+          "keyword": "SUCCEEDED"
+        }
+      },
+      "seconds": 5.766,
+      "assertionsPassed": true
+    },
+    {
+      "username": "student01",
+      "input": "我要靠Python就业。",
+      "reply": "暂时没有找到与当前学习目标匹配的可推荐课程。\n\n可以换一个学习方向或关键词再查找。",
+      "terminals": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 41,
+          "cardCount": 0,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1392,
+          "completionTokens": 0,
+          "totalTokens": 1450
+        }
+      ],
+      "cards": [],
+      "preferences": {
+        "goal": "我要靠Python就业。",
+        "keyword": "Python",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "directResult": {
+        "status": "NOT_FOUND",
+        "retrievalMode": "SEMANTIC",
+        "message": "暂时没有找到与当前学习目标匹配的可推荐课程。",
+        "preferences": {
+          "goal": "我要靠Python就业。",
+          "keyword": "Python",
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [],
+        "ownedCourses": [],
+        "count": 0,
+        "reasonCodes": [
+          "NO_RECALLED_CANDIDATES"
+        ],
+        "nextAction": "可以换一个学习方向或关键词再查找。",
+        "diagnostics": {
+          "scope": "RECALLED_CANDIDATES",
+          "complete": true,
+          "counts": {
+            "semanticCandidates": 0,
+            "keywordCandidates": 0,
+            "mergedCandidates": 0,
+            "evaluatedCandidates": 0,
+            "filteredCandidates": 0,
+            "returnedCandidates": 0,
+            "ownedOrLearned": 0,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          },
+          "semantic": "SUCCEEDED",
+          "keyword": "SUCCEEDED"
+        }
+      },
+      "seconds": 5.221,
+      "assertionsPassed": true
+    },
+    {
+      "username": "student01",
+      "input": "给我推荐学学AI的课程。",
+      "reply": "本次未能返回推荐课程：有候选已在你的已购或学习列表中。\n\n你已购或已加入学习的相关课程：\n\n大模型应用开发入门，已购或已加入学习，当前标价¥499.00。\n课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。\n\n可打开已购课程卡片查看详情和学习入口。",
+      "terminals": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 139,
+          "cardCount": 1,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1648,
+          "completionTokens": 0,
+          "totalTokens": 1729
+        }
+      ],
+      "cards": [
+        {
+          "type": "COURSE_CARD",
+          "cardId": "course:1003",
+          "payload": {
+            "courseId": "1003",
+            "name": "大模型应用开发入门",
+            "coverUrl": "https://placehold.co/480x270?text=LLM",
+            "price": 49900,
+            "priceYuan": "499.00",
+            "introduce": "面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+            "chapterCount": 3,
+            "free": 0,
+            "purchasable": true,
+            "reason": null,
+            "validDuration": 6,
+            "usePeople": "希望把大模型能力接入业务系统的开发者",
+            "owned": true,
+            "completed": false,
+            "recommendationEvidence": [
+              "召回方式：学习目标的语义检索",
+              "课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+              "公开适用人群：希望把大模型能力接入业务系统的开发者"
+            ],
+            "recommendationWarnings": [],
+            "retrievalMode": "SEMANTIC",
+            "dataSource": "COURSE_SERVICE_LIVE",
+            "matchedBy": "SEMANTIC"
+          }
+        }
+      ],
+      "preferences": {
+        "goal": "给我推荐学学AI的课程。",
+        "keyword": "AI",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "directResult": {
+        "status": "NOT_FOUND",
+        "retrievalMode": "SEMANTIC",
+        "message": "本次未能返回推荐课程：有候选已在你的已购或学习列表中。",
+        "preferences": {
+          "goal": "给我推荐学学AI的课程。",
+          "keyword": "AI",
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [],
+        "ownedCourses": [
+          {
+            "courseId": "1003",
+            "name": "大模型应用开发入门",
+            "coverUrl": "https://placehold.co/480x270?text=LLM",
+            "price": 49900,
+            "priceYuan": "499.00",
+            "introduce": "面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+            "chapterCount": 3,
+            "free": 0,
+            "purchasable": true,
+            "reason": null,
+            "validDuration": 6,
+            "usePeople": "希望把大模型能力接入业务系统的开发者",
+            "owned": true,
+            "completed": false,
+            "recommendationEvidence": [
+              "召回方式：学习目标的语义检索",
+              "课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+              "公开适用人群：希望把大模型能力接入业务系统的开发者"
+            ],
+            "recommendationWarnings": [],
+            "retrievalMode": "SEMANTIC",
+            "dataSource": "COURSE_SERVICE_LIVE",
+            "matchedBy": "SEMANTIC"
+          }
+        ],
+        "count": 0,
+        "reasonCodes": [
+          "OWNED_OR_LEARNED"
+        ],
+        "nextAction": "可打开已购课程卡片查看详情和学习入口。",
+        "diagnostics": {
+          "scope": "RECALLED_CANDIDATES",
+          "complete": true,
+          "counts": {
+            "semanticCandidates": 1,
+            "keywordCandidates": 0,
+            "mergedCandidates": 1,
+            "evaluatedCandidates": 1,
+            "filteredCandidates": 1,
+            "returnedCandidates": 0,
+            "ownedOrLearned": 1,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          },
+          "semantic": "SUCCEEDED",
+          "keyword": "SUCCEEDED"
+        }
+      },
+      "seconds": 5.68,
+      "assertionsPassed": true
+    },
+    {
+      "username": "student01",
+      "input": "我要学大模型。",
+      "reply": "本次未能返回推荐课程：有候选已在你的已购或学习列表中。\n\n你已购或已加入学习的相关课程：\n\n大模型应用开发入门，已购或已加入学习，当前标价¥499.00。\n课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。\n\n可打开已购课程卡片查看详情和学习入口。",
+      "terminals": [
+        {
+          "terminal": true,
+          "code": "OK",
+          "message": "ok",
+          "mock": false,
+          "provider": "DASHSCOPE",
+          "stopped": false,
+          "persisted": true,
+          "contentLength": 139,
+          "cardCount": 1,
+          "recommendationServerFallback": false,
+          "agent": "RECOMMEND",
+          "promptTokens": 1749,
+          "completionTokens": 0,
+          "totalTokens": 1870
+        }
+      ],
+      "cards": [
+        {
+          "type": "COURSE_CARD",
+          "cardId": "course:1003",
+          "payload": {
+            "courseId": "1003",
+            "name": "大模型应用开发入门",
+            "coverUrl": "https://placehold.co/480x270?text=LLM",
+            "price": 49900,
+            "priceYuan": "499.00",
+            "introduce": "面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+            "chapterCount": 3,
+            "free": 0,
+            "purchasable": true,
+            "reason": null,
+            "validDuration": 6,
+            "usePeople": "希望把大模型能力接入业务系统的开发者",
+            "owned": true,
+            "completed": false,
+            "recommendationEvidence": [
+              "召回方式：学习目标的语义检索",
+              "课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+              "公开适用人群：希望把大模型能力接入业务系统的开发者"
+            ],
+            "recommendationWarnings": [],
+            "retrievalMode": "HYBRID",
+            "dataSource": "COURSE_SERVICE_LIVE",
+            "matchedBy": "SEMANTIC"
+          }
+        }
+      ],
+      "preferences": {
+        "goal": "我要学大模型。",
+        "keyword": "大模型",
+        "foundation": null,
+        "budgetCents": null,
+        "hoursPerWeek": null,
+        "weeks": null,
+        "categoryId": null,
+        "limit": null,
+        "includeOwned": null,
+        "clearBudget": false,
+        "clearTime": false,
+        "clearCategory": false
+      },
+      "directResult": {
+        "status": "NOT_FOUND",
+        "retrievalMode": "HYBRID",
+        "message": "本次未能返回推荐课程：有候选已在你的已购或学习列表中。",
+        "preferences": {
+          "goal": "我要学大模型。",
+          "keyword": "大模型",
+          "foundation": null,
+          "budgetCents": null,
+          "hoursPerWeek": null,
+          "weeks": null,
+          "categoryId": null,
+          "limit": null,
+          "includeOwned": null,
+          "clearBudget": false,
+          "clearTime": false,
+          "clearCategory": false
+        },
+        "courses": [],
+        "ownedCourses": [
+          {
+            "courseId": "1003",
+            "name": "大模型应用开发入门",
+            "coverUrl": "https://placehold.co/480x270?text=LLM",
+            "price": 49900,
+            "priceYuan": "499.00",
+            "introduce": "面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+            "chapterCount": 3,
+            "free": 0,
+            "purchasable": true,
+            "reason": null,
+            "validDuration": 6,
+            "usePeople": "希望把大模型能力接入业务系统的开发者",
+            "owned": true,
+            "completed": false,
+            "recommendationEvidence": [
+              "召回方式：学习目标的语义检索",
+              "课程简介：面向应用开发者的大模型入门课，讲透 Prompt、工具调用与流式输出。",
+              "公开适用人群：希望把大模型能力接入业务系统的开发者"
+            ],
+            "recommendationWarnings": [],
+            "retrievalMode": "HYBRID",
+            "dataSource": "COURSE_SERVICE_LIVE",
+            "matchedBy": "SEMANTIC"
+          }
+        ],
+        "count": 0,
+        "reasonCodes": [
+          "OWNED_OR_LEARNED"
+        ],
+        "nextAction": "可打开已购课程卡片查看详情和学习入口。",
+        "diagnostics": {
+          "scope": "RECALLED_CANDIDATES",
+          "complete": true,
+          "counts": {
+            "semanticCandidates": 1,
+            "keywordCandidates": 1,
+            "mergedCandidates": 1,
+            "evaluatedCandidates": 1,
+            "filteredCandidates": 1,
+            "returnedCandidates": 0,
+            "ownedOrLearned": 1,
+            "currentlyUnavailable": 0,
+            "priceUnverified": 0,
+            "budgetExceeded": 0,
+            "outsideCourseScope": 0,
+            "foundationMismatch": 0,
+            "timeExceeded": 0
+          },
+          "semantic": "SUCCEEDED",
+          "keyword": "SUCCEEDED"
+        }
+      },
+      "seconds": 6.481,
+      "assertionsPassed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "sessionId": "80015a74-8074-4243-8055-e866f33c45b8",
+      "deleted": true
+    }
+  ]
+}

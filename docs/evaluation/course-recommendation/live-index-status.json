@@ -1,0 +1,10 @@
+{
+  "mock": false,
+  "namespace": "kzai-course-recommend-18df39c315a6fe85",
+  "counts": [
+    {
+      "status": "READY",
+      "total": 289
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+# M15：统一微服务镜像（多阶段：源码构建 → JRE 17 运行）
+# 用法（compose 内）：
+#   build:
+#     context: ..
+#     dockerfile: deploy/docker/Dockerfile.service
+#     args: { MODULE: aigc }
+# 要求：仓库根执行（context=仓库根）。
+# 构建可复现：模块源码 + 根/模块 pom 决定产物；不 COPY 开发机任何绝对路径产物。
+FROM maven:3.9-eclipse-temurin-17 AS build
+ARG MODULE
+WORKDIR /src
+COPY pom.xml ./
+COPY kzai-common/pom.xml kzai-common/
+COPY kzai-gateway/pom.xml kzai-gateway/
+COPY kzai-auth/pom.xml kzai-auth/
+COPY kzai-user/pom.xml kzai-user/
+COPY kzai-course/pom.xml kzai-course/
+COPY kzai-trade/pom.xml kzai-trade/
+COPY kzai-learning/pom.xml kzai-learning/
+COPY kzai-aigc/pom.xml kzai-aigc/
+# 依赖层缓存：先解析（源码未拷贝时依赖不变即命中缓存）
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn -q -pl kzai-${MODULE} -am dependency:go-offline -DskipTests || true
+COPY kzai-common kzai-common
+COPY kzai-gateway kzai-gateway
+COPY kzai-auth kzai-auth
+COPY kzai-user kzai-user
+COPY kzai-course kzai-course
+COPY kzai-trade kzai-trade
+COPY kzai-learning kzai-learning
+COPY kzai-aigc kzai-aigc
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn -q -pl kzai-${MODULE} -am package -DskipTests \
+ && cp kzai-${MODULE}/target/kzai-${MODULE}-*.jar /app.jar
+
+FROM eclipse-temurin:17-jre
+ARG MODULE
+LABEL org.opencontainers.image.title="kzai-${MODULE}"
+WORKDIR /app
+COPY --from=build /app.jar /app/app.jar
+# 日志到 stdout/stderr（Spring 默认控制台）；数据不入镜像
+ENV TZ=Asia/Shanghai \
+    JAVA_OPTS="-Xms256m -Xmx512m -XX:+UseG1GC"
+EXPOSE 18080
+# 健康检查：端口监听 TCP 探测（Spring 无 actuator 依赖）
+HEALTHCHECK --interval=15s --timeout=5s --start-period=90s --retries=10 \
+  CMD bash -c 'exec 3<>/dev/tcp/127.0.0.1/${SERVER_PORT:-18080}' || exit 1
+ENTRYPOINT ["bash", "-c", "java $JAVA_OPTS -jar /app/app.jar"]

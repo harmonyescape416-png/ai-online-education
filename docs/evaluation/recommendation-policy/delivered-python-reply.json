@@ -1,0 +1,36 @@
+{
+  "input": "我要学 Python",
+  "reply": "暂时没有找到与当前学习目标匹配的可推荐课程。\n\n你主要想用它做什么？我可以按用途再找一次。",
+  "terminal": {
+    "terminal": true,
+    "code": "OK",
+    "message": "ok",
+    "mock": false,
+    "provider": "DASHSCOPE",
+    "stopped": false,
+    "persisted": true,
+    "contentLength": 45,
+    "cardCount": 0,
+    "recommendationServerFallback": false,
+    "agent": "RECOMMEND",
+    "promptTokens": 1346,
+    "completionTokens": 0,
+    "totalTokens": 1390
+  },
+  "preferences": {
+    "goal": "我要学 Python",
+    "keyword": "Python",
+    "foundation": null,
+    "budgetCents": null,
+    "hoursPerWeek": null,
+    "weeks": null,
+    "categoryId": null,
+    "limit": null,
+    "includeOwned": null,
+    "clearBudget": false,
+    "clearTime": false,
+    "clearCategory": false
+  },
+  "verified": true,
+  "temporarySessionDeleted": true
+}

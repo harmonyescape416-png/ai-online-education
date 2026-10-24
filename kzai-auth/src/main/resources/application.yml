@@ -1,0 +1,39 @@
+server:
+  port: 18081
+
+spring:
+  application:
+    name: kzai-auth
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+
+kzai:
+  sms:
+    mode: mock
+    code-ttl-seconds: 300
+    send-interval-seconds: 60
+    max-verify-failures: 5
+    daily-send-limit: 10
+    ip-hourly-limit: 20
+    mock-fixture-key: ${KZAI_SMS_FIXTURE_KEY:local-dev-fixture-only}
+  jwt:
+    # 遗留修复⑤：密钥一律由环境变量注入，源码与配置中不落生产密钥
+    secret: ${KZAI_JWT_SECRET:kzai-dev-jwt-secret-only-for-local-run}
+    expire-seconds: 7200
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 30000

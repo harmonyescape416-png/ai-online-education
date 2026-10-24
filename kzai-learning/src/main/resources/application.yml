@@ -1,0 +1,38 @@
+server:
+  port: 18085
+
+spring:
+  application:
+    name: kzai-learning
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/course_stack_ai?useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: kzai
+    password: Kzai@2026
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
+        group: DEFAULT_GROUP
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      id-type: assign_id
+
+kzai:
+  internal:
+    secret: ${KZAI_INTERNAL_SECRET:kzai-dev-internal-secret-only-for-local-run}
+  learning:
+    # 单次进度上报允许累计的最大有效学习时长（秒），超过即视为伪造并拒绝
+    max-study-seconds-per-report: 900
+    # 视频播放到该比例即视为本章学完（0~100）
+    chapter-finish-threshold: 95

@@ -1,0 +1,236 @@
+# M15：《课栈智伴》Docker Compose 全量部署
+# 用法：cd deploy && cp .env.example .env（按需修改）&& docker compose up -d
+# 数据库初始化：sql/ 按文件名顺序自动执行（仅 mysql 数据卷首次为空时）
+name: kzai
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: kzai-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-kzai-root-2026}
+      MYSQL_DATABASE: course_stack_ai
+      MYSQL_USER: kzai
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-Kzai@2026}
+      TZ: Asia/Shanghai
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # 首次初始化按文件名字典序：01…14、14a、15_m14、15_m16、16、17、18、19、20、21。已有数据卷不会重跑。
+      - ../sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-kzai-root-2026}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: kzai-redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-kzai-redis-2026}
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-kzai-redis-2026}", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    container_name: kzai-nacos
+    environment:
+      MODE: standalone
+      NACOS_AUTH_ENABLE: ${NACOS_AUTH_ENABLE:-false}   # 生产必须 true 并配置鉴权
+      JVM_XMS: 256m
+      JVM_XMX: 512m
+      TZ: Asia/Shanghai
+    volumes:
+      - nacos-data:/home/nacos/data
+      - nacos-logs:/home/nacos/logs
+    healthcheck:
+      test: ["CMD", "curl", "-fs", "http://127.0.0.1:8848/nacos/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+  elasticsearch:
+    image: elasticsearch:8.11.4
+    container_name: kzai-es
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      TZ: Asia/Shanghai
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://127.0.0.1:9200/_cluster/health | grep -q '\"status\":\"\\(green\\|yellow\\)\"'"]
+      interval: 10s
+      timeout: 5s
+      retries: 40
+      start_period: 60s
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: gateway }
+    container_name: kzai-gateway
+    environment:
+      SERVER_PORT: "18080"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: "6379"
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:-kzai-redis-2026}
+      SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR: nacos:8848
+      KZAI_JWT_SECRET: ${KZAI_JWT_SECRET:-local-dev-jwt-secret-please-change-in-production}
+      KZAI_INTERNAL_SECRET: ${KZAI_INTERNAL_SECRET:-local-dev-internal-secret-please-change}
+    ports:
+      - "${GATEWAY_PORT:-18080}:18080"
+    depends_on:
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  auth:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: auth }
+    container_name: kzai-auth
+    environment: &svc_env
+      SERVER_PORT: "18081"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/course_stack_ai?useUnicode=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: kzai
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-Kzai@2026}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: "6379"
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:-kzai-redis-2026}
+      SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR: nacos:8848
+      KZAI_JWT_SECRET: ${KZAI_JWT_SECRET:-local-dev-jwt-secret-please-change-in-production}
+      KZAI_INTERNAL_SECRET: ${KZAI_INTERNAL_SECRET:-local-dev-internal-secret-please-change}
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  user:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: user }
+    container_name: kzai-user
+    environment:
+      <<: *svc_env
+      SERVER_PORT: "18082"
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  course:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: course }
+    container_name: kzai-course
+    environment:
+      <<: *svc_env
+      SERVER_PORT: "18083"
+    volumes:
+      - course-files:/app/data   # 课程文件（上传/资料）持久化
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  trade:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: trade }
+    container_name: kzai-trade
+    environment:
+      <<: *svc_env
+      SERVER_PORT: "18084"
+    depends_on:
+      mysql: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  learning:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: learning }
+    container_name: kzai-learning
+    environment:
+      <<: *svc_env
+      SERVER_PORT: "18085"
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+    restart: unless-stopped
+
+  aigc:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.service
+      args: { MODULE: aigc }
+    container_name: kzai-aigc
+    environment:
+      <<: *svc_env
+      SERVER_PORT: "18086"
+      # 知识库 ES（容器名访问）。M15 REAL 修复：原 KZAI_AI_KNOWLEDGE_ESURL 为死键
+      # （绑定不到 kzai.aigc.knowledge-es-url），容器内会回退 127.0.0.1 不可达
+      KZAI_ES_URL: http://elasticsearch:9200
+      # 真实 AI：显式开启才装配（默认 MOCK；绝不默认计费）
+      DASHSCOPE_ENABLED: ${DASHSCOPE_ENABLED:-false}
+      KZAI_AIGC_REAL_ENABLED: ${DASHSCOPE_ENABLED:-false}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      # M15 REAL 修复：原 KZAI_AI_KNOWLEDGE_EMBEDDING_PROVIDER 为死键（条件注解已统一
+      # 为 kzai.aigc.embedding-provider），env 键同步修正，避免「配置了 REAL 实际仍 MOCK」
+      KZAI_EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-mock}
+      # 课程推荐与教师资料知识库分别选择模型；真实语义推荐需显式开启并提供 Key。
+      KZAI_RECOMMENDATION_EMBEDDING_PROVIDER: ${KZAI_RECOMMENDATION_EMBEDDING_PROVIDER:-mock}
+      KZAI_RECOMMENDATION_EMBEDDING_MODEL: ${KZAI_RECOMMENDATION_EMBEDDING_MODEL:-text-embedding-v4}
+      KZAI_RECOMMENDATION_MIN_SCORE: ${KZAI_RECOMMENDATION_MIN_SCORE:-0.78}
+      KZAI_RECOMMENDATION_INDEXING_ENABLED: ${KZAI_RECOMMENDATION_INDEXING_ENABLED:-true}
+    volumes:
+      - knowledge-files:/app/data/knowledge   # 知识库源文件持久化
+    depends_on:
+      mysql: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      nacos: { condition: service_healthy }
+      elasticsearch: { condition: service_healthy }
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/docker/Dockerfile.frontend
+    container_name: kzai-web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - gateway
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:
+  nacos-data:
+  nacos-logs:
+  es-data:
+  course-files:
+  knowledge-files:

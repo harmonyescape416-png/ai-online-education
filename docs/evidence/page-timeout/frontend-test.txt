@@ -1,0 +1,13 @@
+
+> kzai-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v4.1.12 /Users/djanjo/CodeBuddy/20261018213055/kzai-frontend
+
+
+ Test Files  9 passed | 1 skipped (10)
+      Tests  28 passed | 7 skipped (35)
+   Start at  12:35:21
+   Duration  1.56s (transform 1.10s, setup 0ms, import 5.14s, tests 1.79s, environment 3.61s)
+
